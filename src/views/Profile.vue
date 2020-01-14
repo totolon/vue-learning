@@ -1,11 +1,18 @@
 <template>
-  <div class="profile">我的</div>
+  <div class="profile">
+    <NavBar class="nav-bar">
+      <div slot="center">我的</div>
+    </NavBar>
+  </div>
 </template>
 
 <script>
+import NavBar from "components/common/navBar/NavBar"
 export default {
   name: "",
-  components: {},
+  components: {
+    NavBar
+  },
   props: {},
   data() {
     return {
@@ -16,14 +23,14 @@ export default {
   methods: {},
   created() {},
   activated() {
-    console.log("huoyue")
+    // console.log("huoyue")
   },
   mounted() {}
 }
 </script>
 <style scoped>
-.profile {
-  font-size: 20px;
-  font-weight: bold;
+.nav-bar {
+  background-color: #ff5777;
+  color: #fff;
 }
 </style>

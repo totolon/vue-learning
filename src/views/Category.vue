@@ -1,11 +1,18 @@
 <template>
-  <div class="category">分类</div>
+  <div class="category">
+    <NavBar class="nav-bar">
+      <div slot="center">分类</div>
+    </NavBar>
+  </div>
 </template>
 
 <script>
+import NavBar from "components/common/navBar/NavBar"
 export default {
   name: "",
-  components: {},
+  components: {
+    NavBar
+  },
   props: {},
   data() {
     return {
@@ -19,8 +26,8 @@ export default {
 }
 </script>
 <style scoped>
-.category {
-  font-size: 20px;
-  font-weight: bold;
+.nav-bar {
+  background-color: #ff5777;
+  color: #fff;
 }
 </style>
