@@ -24,6 +24,7 @@ export default {
 .tab-bar {
   display: flex;
   position: fixed;
+  background-color: #f6f6f6;
   /* align-items: center; */
   /* justify-content: center; */
   /* align-content: center; */

@@ -15,6 +15,7 @@ export function request(config) {
     },
     err => {
       //请求发生错误
+      // return err
     }
   )
 
@@ -25,6 +26,17 @@ export function request(config) {
     },
     err => {
       //响应发生错误
+      // if (err && err.response) {
+      //   switch (err.response.status) {
+      //     case 400:
+      //       err.message = '请求错误'
+      //       break
+      //     case 401:
+      //       err.message = '未授权的访问'
+      //       break
+      //   }
+      // }
+      // return err
     }
   )
 

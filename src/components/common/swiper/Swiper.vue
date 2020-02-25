@@ -73,7 +73,7 @@ export default {
       this.scrolling = true;
 
       //1.开始滚动动画
-      this.swiperStyle.transition = "transform" + this.animDuration + "ms";
+      this.swiperStyle.transition = "transform " + this.animDuration + "ms";
       this.setTransform(currentPosition);
 
       //2.判断滚动到的位置
@@ -131,6 +131,13 @@ export default {
         let cloneLast = slidesEls[this.slideCount - 1].cloneNode(true);
         swiperEl.insertBefore(cloneLast, slidesEls[0]);
         swiperEl.appendChild(cloneFirst);
+      /* offsetWidth：
+      获取的是盒子最终的宽
+      offsetHeight:
+      获取的是盒子最终的高
+      获取的是数值，可以直接参与数学运算
+      获取的是不带单位的数值类型的宽高
+      以上属性只能获取，无法修改 */
         this.totalWidth = swiperEl.offsetWidth;
         this.swiperStyle = swiperEl.style;
       }
@@ -208,9 +215,8 @@ export default {
       this.stopTimer();
 
       //2.修改index和位置
-      this.currentIndex += numthis.scrollContent(
-        -this.currentIndex * this.totalWidth
-      );
+      this.currentIndex += num;
+      this.scrollContent(-this.currentIndex * this.totalWidth);
 
       //3.添加定时器
       this.startTimer();
@@ -230,12 +236,19 @@ export default {
 #swiper {
   overflow: hidden;
   position: relative;
-  background-color: aquamarine;
-  height: 200px;
+  /* background-color: aquamarine; */
+  /* 如果不设置高度，就是利用后台给的banner的高度撑起；
+     如果设置高度，就需要设置默认值，通过父组件传值给此组件即可（不过图片会被裁剪或缩放，不推荐）
+   */
+  /* height: 200px; */
 }
 
 .swiper {
   display: flex;
+  /* 如果不设置高度，就是利用后台给的banner的高度撑起；
+     如果设置高度，就需要设置默认值，通过父组件传值给此组件即可（不过图片会被裁剪或缩放，不推荐）
+   */
+  /* height: 200px; */
 }
 
 .indicator {

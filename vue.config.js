@@ -9,5 +9,18 @@ module.exports = {
         'views': "@/views",
       }
     }
+  },
+  devServer: {
+    proxy: {
+      //配置跨域请求
+      '/douban_api': {
+        target: "https://movie.douban.com/",  //跨域地址
+        // ws: true,
+        pathRewrite: {
+          '^/douban_api': ''   //重写接口
+        },
+        changeOrigin: true,     //是否跨域
+      }
+    }
   }
 }
