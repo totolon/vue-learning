@@ -20,6 +20,14 @@ module.exports = {
           '^/douban_api': ''   //重写接口
         },
         changeOrigin: true,     //是否跨域
+      },
+      '/api': {
+        target: "http://api.douban.com/",  //跨域地址
+        // ws: true,
+        pathRewrite: {
+          '^/api': ''   //重写接口
+        },
+        changeOrigin: true,     //是否跨域
       }
     }
   }

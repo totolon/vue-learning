@@ -1,7 +1,7 @@
 <template>
   <div class="list-item" v-if="itemInfo">
     <a class="item-url" :href="itemInfo.url">
-    <img :src="imgUrl" alt :title="itemInfo.title" @load="imgLoaded"/>
+    <img :src="itemInfo.cover" alt :title="itemInfo.title" @load="imgLoaded"/>
     <div class="item-info">
       <span class="title">{{ itemInfo.title }}</span>
       <span class="score">{{ itemInfo.rate }}</span>
@@ -37,13 +37,6 @@ export default {
     }
   },
   methods: {
-    // 解决豆瓣403图片缓存问题(豆瓣服务器拒绝访问图片)
-    // getImages(_url) {
-    //   if (_url !== undefined) {
-    //     let _u = _url.substring(7);
-    //     return "https://images.weserv.nl/?url=" + _u;
-    //   }
-    // }
     imgLoaded() {
       console.log('图片加载完毕')
     }

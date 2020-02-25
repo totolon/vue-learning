@@ -3,10 +3,18 @@
     <NavBar class="nav-bar">
       <div slot="center">首页</div>
     </NavBar>
-    <Scroll class="wrapper" :data="showMtaList" :pull-up-load="true" :probe-type="3" @pullingUp="loadMore">
+    <TabControl class="fixed" v-show="isTabFixed" :titles="['电影', '电视剧', '动漫']" @typeClick="typeClick" />
+    <Scroll
+      class="wrapper"
+      :data="showMtaList"
+      :pull-up-load="true"
+      :probe-type="3"
+      @pullingUp="loadMore"
+      @scroll="contentScroll"
+    >
       <div class="content">
         <HomeSwiper :banners="banners" />
-        <TabControl class="tab-control" :titles="['电影', '电视剧', '动漫']" @typeClick="typeClick" />
+        <TabControl ref="tabControl" class="tab-control" :titles="['电影', '电视剧', '动漫']" @typeClick="typeClick" />
         <List :list="showMtaList" />
       </div>
     </Scroll>
@@ -36,7 +44,8 @@ export default {
     return {
       banners: [],
       currentType: "电影",
-      list: [],
+      tabOffsetTop: 0,
+      isTabFixed: false,
       mtaList: {
         电影: { page: 1, list: [] },
         电视剧: { page: 1, list: [] },
@@ -57,28 +66,35 @@ export default {
           this.currentType = "日本动画";
       }
     },
-    getDataList(type,page_limit,page_start) {
-      getData(type,page_limit,page_start).then(res => {
+    contentScroll(position) {
+      // 1.决定tabFixed是否显示
+        this.isTabFixed = position.y < -this.tabOffsetTop
+    },
+    getDataList(type, page_limit, page_start) {
+      getData(type, page_limit, page_start).then(res => {
         this.mtaList[type].list = res.data.subjects;
+        this.$nextTick(() => {
+            this.tabOffsetTop = this.$refs.tabControl.$el.offsetTop
+          })
         // console.log(res.data.subjects)
       });
     },
     loadMore() {
-      console.log('首页组件加载更多')
+      console.log("首页组件加载更多");
     }
   },
   computed: {
     showMtaList() {
-      return this.mtaList[this.currentType].list
+      return this.mtaList[this.currentType].list;
     }
   },
   created() {
     getHomeMultidata().then(res => {
       this.banners = res.data.banner.list;
     });
-    this.getDataList("电影",21,0);
-    this.getDataList("电视剧",21,0);
-    this.getDataList("日本动画",21,0);
+    this.getDataList("电影", 21, 0);
+    this.getDataList("电视剧", 21, 0);
+    this.getDataList("日本动画", 21, 0);
   }
 };
 </script>
@@ -99,6 +115,16 @@ export default {
   left: 0;
   right: 0;
   overflow: hidden;
+}
+.fixed {
+  position: fixed;
+  top: 43px;
+  left: 0;
+  right: 0;
+  z-index: 10;
+}
+.active {
+  z-index: 10;
 }
 .tab-control {
   /* position: sticky;
