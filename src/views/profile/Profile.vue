@@ -55,8 +55,10 @@ export default {
     // console.log("huoyue")
   },
   mounted() {
-    let scroll = new BScroll(this.$refs.wrapper)
-    console.log(scroll)
+    let scroll = new BScroll(this.$refs.wrapper,{probeType:3,pullUpLoad:true})
+    scroll.on("pullingUp", () => {
+        console.log("上拉加载");
+      });
   }
 }
 </script>

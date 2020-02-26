@@ -1,13 +1,15 @@
 <template>
-  <div ref="wrapper">
-    <slot></slot>
+  <div class="wrapper" ref="wrapper">
+    <div class="content">
+      <slot></slot>
+    </div>
   </div>
 </template>
 
 <script>
 import BScroll from "@better-scroll/core";
 export default {
-  name: "Scroll",
+  name: "BetterScroll",
   components: {},
   props: {
     probeType: {
@@ -32,7 +34,7 @@ export default {
   },
   watch: {
     data() {
-      setTimeout(this.refresh, 20);
+      setTimeout(this.refresh, 200);
     }
   },
   computed: {},
@@ -41,21 +43,22 @@ export default {
       //1.初始化BScroll对象
       if (!this.$refs.wrapper) return
       this.scroll = new BScroll(this.$refs.wrapper, {
+        // (1) probeType：监听滚动的位置；可选值：1、2、3;
         probeType: this.probeType,
+        // (2)click:默认值：false  better-scroll 默认会阻止浏览器的原生 click 事件。 当设置为 true，better-scroll 会派发一个 click 事件，我们会给派发的 event 参数加一个私有属性 _constructed，值为 true。
         click: true,
+        // (3)pullUpLoad：默认值：false    如果需要监听滚动底部事件，设置为true
         pullUpLoad: this.pullUpLoad
       })
 
-      console.log(this.scroll)
-      console.log('滚动条高度',this.scroll.scrollerHeight)
-      //2.将监听事件回调
-      this.scroll.on("scroll", pos => {
-        this.$emit("scroll", pos);
+      //2.实时监听滚动位置
+      this.scroll.on("scroll", (position) => {
+        this.$emit("scroll", position);
       })
 
       //3.监听上拉到底部
       this.scroll.on("pullingUp", () => {
-        console.log("上拉加载");
+        console.log("到达底部");
         this.$emit("pullingUp");
       });
     },
@@ -71,7 +74,7 @@ export default {
   },
   created() {},
   mounted() {
-    setTimeout(this.__initScroll, 20);
+    setTimeout(this.__initScroll, 200);
   }
 };
 </script>

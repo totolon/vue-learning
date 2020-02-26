@@ -26,16 +26,7 @@ export default {
     return {};
   },
   watch: {},
-  computed: {
-    imgUrl() {
-      if (this.itemInfo && this.itemInfo.cover) {
-        let _u = this.itemInfo.cover.substring(7);
-        return "https://images.weserv.nl/?url=" + _u;
-      }else{
-        return null
-      }
-    }
-  },
+  computed: {},
   methods: {
     imgLoaded() {
       console.log('图片加载完毕')
