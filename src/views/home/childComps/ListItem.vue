@@ -1,7 +1,9 @@
 <template>
   <div class="list-item" v-if="itemInfo">
     <a class="item-url" :href="itemInfo.url">
+    <div class="img-box">
     <img :src="itemInfo.cover" alt :title="itemInfo.title" @load="imgLoaded"/>
+    </div>
     <div class="item-info">
       <span class="title">{{ itemInfo.title }}</span>
       <span class="score">{{ itemInfo.rate }}</span>
@@ -38,10 +40,18 @@ export default {
 </script>
 <style scoped>
 .list-item {
-  width: 30%;
+  width: 30vw;
+  margin-bottom: 10px;
 }
-.list-item img {
+.img-box {
+  width: 30vw;
+  height: calc(30vw/0.75);
+  overflow: hidden;
+  margin-bottom: 5px;
+}
+.img-box img {
   width: 100%;
+  height: 100%;
 }
 .item-url {
   text-decoration: none;

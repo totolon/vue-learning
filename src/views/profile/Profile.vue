@@ -35,7 +35,7 @@
 <script>
 import NavBar from "components/common/navBar/NavBar"
 
-import BScroll from '@better-scroll/core'
+import BScroll from 'better-scroll'
 
 export default {
   name: "",
@@ -55,7 +55,7 @@ export default {
     // console.log("huoyue")
   },
   mounted() {
-    let scroll = new BScroll(this.$refs.wrapper,{probeType:3,pullUpLoad:true})
+    let scroll = new BScroll(this.$refs.wrapper,{probeType:2,pullUpLoad:true})
     scroll.on("pullingUp", () => {
         console.log("上拉加载");
       });
