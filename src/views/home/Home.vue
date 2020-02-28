@@ -53,9 +53,9 @@ export default {
       isTabFixed: false,
       showBackTop: false,
       mtaList: {
-        电影: { page: 1, list: [] },
-        电视剧: { page: 1, list: [] },
-        日本动画: { page: 1, list: [] }
+        '电影': { params: {type: 'movie' ,tag: '热门' ,page_limit: 0, page_start: 0, sort: ''}, list: [] },
+        '电视剧': { params: {type: 'tv' ,tag: '热门' ,page_limit: 0, page_start: 0, sort: ''}, list: [] },
+        '日本动画': { params: {type: 'tv' ,tag: '日本动画' ,page_limit: 0, page_start: 0, sort: ''}, list: [] }
       }
     };
   },
@@ -85,12 +85,26 @@ export default {
       this.showBackTop = -position.y > 600
     },
     backTop() {
-      this.$refs.scroll.scrollTo(0,0,1500)
+      this.$refs.scroll.scrollTo(0,0,500)
       console.log('置顶')
     },
-    getDataList(type, page_limit, page_start) {
-      getData(type, page_limit, page_start).then(res => {
-        this.mtaList[type].list = res.data.subjects;
+    // getDataList(tag, page_limit, page_start) {
+    //   getData(tag, page_limit, page_start).then(res => {
+    //     this.mtaList[tag].list = res.data.subjects;
+    //     this.$nextTick(() => {
+    //         this.tabOffsetTop = this.$refs.tabControl2.$el.offsetTop
+    //       })
+    //     // console.log(res.data.subjects)
+    //   });
+    // },
+    getDataList(type) {
+      let length = this.mtaList[type].list.length
+      this.mtaList[type].params.page_limit += 21
+      this.mtaList[type].params.page_start +=length
+      getData(this.mtaList[type].params).then(res => {
+        this.mtaList[type].list.push(...res.data.subjects)
+        //better-scroll完成一次上拉加载后，必须执行完成方法，才可以进行下一次上拉加载
+        this.$refs.scroll.finishPullUp()
         this.$nextTick(() => {
             this.tabOffsetTop = this.$refs.tabControl2.$el.offsetTop
           })
@@ -98,7 +112,7 @@ export default {
       });
     },
     loadMore() {
-      console.log("首页组件加载更多");
+      this.getDataList(this.currentType)
     }
   },
   computed: {
@@ -110,9 +124,9 @@ export default {
     getHomeMultidata().then(res => {
       this.banners = res.data.banner.list;
     });
-    this.getDataList("电影", 21, 0);
-    this.getDataList("电视剧", 21, 0);
-    this.getDataList("日本动画", 21, 0);
+    this.getDataList("电影");
+    this.getDataList("电视剧");
+    this.getDataList("日本动画");
   }
 };
 </script>
