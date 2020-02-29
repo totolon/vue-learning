@@ -1,7 +1,10 @@
 <template>
   <div class="home">
     <NavBar class="nav-bar">
-      <div slot="center">首页</div>
+      <div slot="center">TOTOLON</div>
+      <div class="filter" slot="right" @click="showSelector = !showSelector" >
+        <NavFilter :options="['按热度','按时间','按评分']" :showSelector="showSelector" @optionClick="optionClick" />
+      </div>
     </NavBar>
     <TabControl ref="tabControl1" class="fixed" v-show="isTabFixed" :titles="['电影', '电视剧', '动漫']" @typeClick="typeClick" />
     <BetterScroll
@@ -27,6 +30,7 @@
 import TabControl from "components/content/tabControl/TabControl";
 
 import NavBar from "components/common/navBar/NavBar";
+import NavFilter from "components/content/navFilter/NavFilter";
 import HomeSwiper from "./childComps/HomeSwiper";
 import BetterScroll from "components/common/betterScroll/BetterScroll";
 import List from "./childComps/List";
@@ -38,6 +42,7 @@ export default {
   name: "home",
   components: {
     NavBar,
+    NavFilter,
     HomeSwiper,
     BetterScroll,
     TabControl,
@@ -52,6 +57,7 @@ export default {
       tabOffsetTop: 0,
       isTabFixed: false,
       showBackTop: false,
+      showSelector: false,
       mtaList: {
         '电影': { params: {type: 'movie' ,tag: '热门' ,page_limit: 0, page_start: 0, sort: ''}, list: [] },
         '电视剧': { params: {type: 'tv' ,tag: '热门' ,page_limit: 0, page_start: 0, sort: ''}, list: [] },
@@ -66,6 +72,22 @@ export default {
     }
   },
   methods: {
+    optionClick(index) {
+      this.mtaList[this.currentType].params.page_start = 0;
+      this.mtaList[this.currentType].params.page_limit = 0;
+      this.mtaList[this.currentType].list = [];
+      switch (index) {
+        case 0:
+          this.mtaList[this.currentType].params.sort = 'recommend'
+          break;
+        case 1:
+          this.mtaList[this.currentType].params.sort = 'time'
+          break;
+        case 2:
+          this.mtaList[this.currentType].params.sort = 'rank'
+      }
+      this.getDataList(this.currentType)
+    },
     typeClick(index) {
       this.currentIndex = index
       switch (index) {
@@ -140,6 +162,10 @@ export default {
   background-color: #513669;
   font-weight: 700;
   color: #fff;
+}
+.filter img {
+  /* height: 28px;
+  vertical-align: middle; */
 }
 .scroll-content {
   position: absolute;
