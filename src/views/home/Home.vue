@@ -1,13 +1,13 @@
 <template>
   <div class="home">
-    <NavBar class="nav-bar">
+    <nav-bar class="nav-bar">
       <div slot="center">TOTOLON</div>
       <div class="filter" slot="right" @click="showSelector = !showSelector" >
         <NavFilter :options="['按热度','按时间','按评分']" :showSelector="showSelector" @optionClick="optionClick" />
       </div>
-    </NavBar>
-    <TabControl ref="tabControl1" class="fixed" v-show="isTabFixed" :titles="['电影', '电视剧', '动漫']" @typeClick="typeClick" />
-    <BetterScroll
+    </nav-bar>
+    <tab-control ref="tabControl1" class="fixed" v-show="isTabFixed" :titles="['电影', '电视剧', '动漫']" @typeClick="typeClick" />
+    <better-scroll
       class="scroll-content"
       ref="scroll"
       :data="showMtaList"
@@ -19,10 +19,10 @@
       <HomeSwiper :banners="banners" />
         <TabControl ref="tabControl2" class="tab-control" :titles="['电影', '电视剧', '动漫']" @typeClick="typeClick" />
         <List :list="showMtaList" />
-    </BetterScroll>
-    <BackTop @backTop="backTop" class="back-top" v-show="showBackTop">
+    </better-scroll>
+    <back-top @backTop="backTop" class="back-top" v-show="showBackTop">
       <img src="~assets/img/common/top.png" alt="">
-    </BackTop>
+    </back-top>
   </div>
 </template>
 

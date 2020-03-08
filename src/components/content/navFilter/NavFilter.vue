@@ -1,5 +1,5 @@
 <template>
-  <div class="filter">
+  <div class="nav-filter">
     <img src="~assets/img/icon/filter.png" alt="">
     <div class="selector" v-if="showSelector">
       <div class="filter_item" v-for="(item,index) in options" :key="item" @click="optionClick(index)">
