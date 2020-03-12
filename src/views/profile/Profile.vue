@@ -4,30 +4,7 @@
       <div slot="center">我的</div>
     </NavBar>
     <div class="wrapper" ref="wrapper">
-      <div class="content">
-        <ul>
-          <li>自定义1</li>
-          <li>自定义2</li>
-          <li>自定义3</li>
-          <li>自定义4</li>
-          <li>自定义5</li>
-          <li>自定义6</li>
-          <li>自定义7</li>
-          <li>自定义8</li>
-          <li>自定义9</li>
-          <li>自定义10</li>
-          <li>自定义11</li>
-          <li>自定义12</li>
-          <li>自定义13</li>
-          <li>自定义14</li>
-          <li>自定义15</li>
-          <li>自定义16</li>
-          <li>自定义17</li>
-          <li>自定义18</li>
-          <li>自定义19</li>
-          <li>自定义20</li>
-        </ul>
-      </div>
+      <img src="~assets/img/profile.png" alt="">
     </div>
   </div>
 </template>
@@ -35,7 +12,6 @@
 <script>
 import NavBar from "components/common/navBar/NavBar"
 
-import BScroll from 'better-scroll'
 
 export default {
   name: "",
@@ -55,10 +31,6 @@ export default {
     // console.log("huoyue")
   },
   mounted() {
-    let scroll = new BScroll(this.$refs.wrapper,{probeType:2,pullUpLoad:true})
-    scroll.on("pullingUp", () => {
-        console.log("上拉加载");
-      });
   }
 }
 </script>
@@ -70,7 +42,12 @@ export default {
 .wrapper {
   position: absolute;
   top: 44px;
-  height: 200px;
+  bottom: 49px;
+  width: 100%;
   overflow: hidden;
+}
+.wrapper img {
+  height: 100%;
+  width: 100%;
 }
 </style>
