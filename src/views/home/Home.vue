@@ -144,7 +144,12 @@ export default {
   },
   created() {
     getHomeMultidata().then(res => {
-      this.banners = res.data.banner.list;
+      this.banners = [
+        {image: require('assets/img/swiper/dog.jpg')},
+        {image: require('assets/img/swiper/food.jpg')},
+        {image: require('assets/img/swiper/pink.jpg')}
+        ]
+        // this.banners = res.data.banner.list;
     });
     this.getDataList("电影");
     this.getDataList("电视剧");

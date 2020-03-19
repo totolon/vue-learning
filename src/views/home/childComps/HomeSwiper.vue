@@ -19,7 +19,13 @@ export default {
   },
   props: {
     banners: {
-      type: Array
+      type: Array,
+      default() {
+        return [
+        {image: require('assets/img/swiper/dog.jpg')},
+        {image: require('assets/img/swiper/food.jpg')},
+        {image: require('assets/img/swiper/pink.jpg')}]
+      }
     }
   },
   data() {

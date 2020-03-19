@@ -36,6 +36,8 @@ export default {
 .tab-control {
   display: flex;
   background-color: #fff;
+  margin-bottom: 8px;
+  border-bottom: 1px solid #999;
 }
 .tab-control-item {
   flex: 1;
@@ -43,7 +45,7 @@ export default {
   line-height: 40px;
 }
 .tab-control-item span {
-  padding: 6px;
+  padding: 9px;
 }
 .active {
   color: cornflowerblue;

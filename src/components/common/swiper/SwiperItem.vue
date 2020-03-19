@@ -17,5 +17,6 @@ export default {
 
 .slide img {
   width: 100%;
+  vertical-align: middle;
 }
 </style>
